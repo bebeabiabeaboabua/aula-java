@@ -3,9 +3,11 @@ import java.util.Scanner;
 
 public class Calculator{
 
+
+    //metodo para perguntar se pessoa quer fazer outro calculo usando boolean
     public static boolean continuar() {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("\nDeseja fazer outro cálculo?");
+        System.out.println("\nDeseja fazer outro calculo?");
         System.out.println("1 - Sim (voltar ao menu)");
         System.out.println("2 - Não (sair)");
         int opcao = scanner.nextInt();
@@ -13,6 +15,7 @@ public class Calculator{
         return opcao == 1; // se for 1, volta pro menu
     }
 
+    //metodo para scannear os numeros digitados pelo usuario
     public static double[] pegarNumeros() {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Digite o primeiro valor: ");
@@ -35,11 +38,18 @@ public class Calculator{
         System.out.println("subtracao: "+subtracao);
     }
 
-    public static void divisao(){
+    public static void divisao() {
         double[] numeros = pegarNumeros();
-        double divisao = numeros[0] / numeros[1];
-        System.out.println("divisao: "+divisao);
+        
+        while (numeros[1] == 0) {
+            System.out.println("Voce nao pode dividir por 0! Digite outro valor:");
+            numeros = pegarNumeros();
+        }
+        
+        double resultado = numeros[0] / numeros[1];
+        System.out.println("Divisao: " + resultado);
     }
+
 
     public static void restoDaDivisao(){
         double[] numeros = pegarNumeros();
@@ -54,6 +64,7 @@ public class Calculator{
         System.out.println("multiplicacao: "+multiplicar);
     }
 
+    // metodo do menu da calculadora
     public static void menuCalculadora(){
         Scanner scanner = new Scanner(System.in); 
         boolean repetir = true;
@@ -102,6 +113,7 @@ public class Calculator{
         }
     }
 
+    // main que vai chamar o menu da calculadora
     public static void main(String[] args){
         menuCalculadora();
     }
