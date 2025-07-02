@@ -93,7 +93,7 @@ public class Calculator{
                     repetir = continuar();
                     break;
                 case 6:
-                    System.out.println("Encerrando o programa... Obrigada por usar! 🧡");
+                    System.out.println("Encerrando o programa... Obrigada por usar!");
                     System.exit(0);
                     break;
                 default:
