@@ -71,6 +71,7 @@ public class JogoDaVelha {
             scanner.nextLine(); // Limpa o Enter que sobrou
             resposta = scanner.nextLine(); //scanneia a resposta
             deNovo = resposta.equalsIgnoreCase("s"); // diz que deNovo é true se a resposta for s ou S
+            jogador = 1;
 
         } while (deNovo); // caso deNovo seja verdadeiro, roda todo o codigo de novo
 
