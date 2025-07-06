@@ -56,7 +56,10 @@ public class JogoDaVelha {
                     jogador = (jogador == 1) ? 2 : 1; // alterna entre jogador 1 e 2
 
                 } else { //caso a pessoa digitou algo invalido
-                    System.out.println("Jogada invalida. Tente novamente.");
+                    limparTela(); //chama pra limpar a tela
+                    System.out.println("Jogada invalida. Aperte enter para jogar de novo");
+                    scanner.nextLine(); // Primeiro limpa o Enter que sobrou do nextInt()
+                    String erro = scanner.nextLine();
                     i--; // Volta uma jogada
                 }
             }
