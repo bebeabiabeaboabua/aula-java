@@ -9,9 +9,9 @@
 - Gerar número aleatório
   
 ### Dentro da pasta:
-- "calculadora" você encontra uma calculadora de área do triângulo, uma calculadora de média das notas dos alunos e uma calculadora básica.
-- "exemplos" tem as introduções dos conceitos básicos de Java
-- "jogos" você encontra os projetos mais avançados que reunem todos os conhecimentos aprendidos, como o jogo da velha e o jogo de adivinhar o número secreto
+- "calculadora" você encontra uma calculadora de temperatura média, maior e menor, área do triângulo, uma calculadora de média das notas dos alunos e uma calculadora básica.
+- "exemplos" tem as introduções dos conceitos básicos de Java.
+- "jogos" você encontra os projetos mais avançados que reunem todos os conhecimentos aprendidos, como o jogo da velha e o jogo de adivinhar o número secreto.
 
 ☕🍵
 
