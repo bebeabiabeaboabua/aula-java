@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class OrientacaoObjetos{
+public class AreaTriangulo{
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         double[] trianguloX = new double[3];
