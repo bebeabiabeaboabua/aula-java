@@ -36,7 +36,7 @@ public class Strings {
 
     //concatenar
 
-    System.ou.println(senha+" "+texto);
+    System.out.println(senha+" "+texto);
 
 
         scanner.close();
