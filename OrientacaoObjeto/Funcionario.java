@@ -1,5 +1,3 @@
-package OrientacaoObjeto;
-
 public class Funcionario {
 
     public String nome;
@@ -10,8 +8,11 @@ public class Funcionario {
         return salarioBruto - taxa;
     }
 
-    public double Aumento(){
-        salarioBruto += salarioBruto * (pedir percentual)/100;
+    public void Aumento(double porcentagem){
+        salarioBruto += salarioBruto * (porcentagem/100.0);
     }
     
+    public String toString(){
+        return nome + ", $ "+ String.format("%.2f", SalarioLiquido());
+    }
 }
