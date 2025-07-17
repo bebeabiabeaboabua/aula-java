@@ -79,5 +79,8 @@ public class LivrosMain {
         System.out.println("Preço: R$" + livrolivraria.getPreco());
         System.out.println("Estado (novo/usado): " + livrolivraria.getNovoUsado());
         System.out.println("Local na prateleira: " + livrolivraria.getLocalPrateleira());
+
+        Livro novoLivro = new Livro();
+        System.out.println("novo livro: "+novoLivro.getTitulo());
     }
 }

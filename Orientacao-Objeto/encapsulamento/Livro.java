@@ -6,6 +6,15 @@ public class Livro{
     private int edicao;
     private String editora;
 
+    // Método Construtor
+    Livro() {
+    this.codigo = 0;
+    this.titulo = "Sem titulo";
+    this.autor = "Sem autor";
+    this.editora = "Sem editora";
+    this.nrPaginas = 0;
+    this.edicao = 0;
+}
 
     public int getCodigo(){
         return codigo;
