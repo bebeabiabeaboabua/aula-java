@@ -1,12 +1,18 @@
 public class Aluno extends Pessoa {
     private int nota;
     private String comportamento;
+    private String corFavorita;
+
+    public Aluno(){
+        
+    }
 
     public Aluno(String nome, int idade, String corCabelo, double altura, String estilo, boolean usaOculos,
-                 int nota, String comportamento) {
+                 int nota, String comportamento, String corFavorita) {
         super(nome, idade, corCabelo, altura, estilo, usaOculos); // chama o construtor da superclasse
         this.nota = nota;
         this.comportamento = comportamento;
+        this.corFavorita = corFavorita;
     }
 
     // Getter e Setter para nota
@@ -27,6 +33,14 @@ public class Aluno extends Pessoa {
         this.comportamento = comportamento;
     }
 
+    public String getCorFavorita() {
+        return corFavorita;
+    }
+
+    public void setCorFavorita(String corFavorita) {
+        this.corFavorita = corFavorita;
+    }
+
 @Override
 public void exibirInformacoes() {
     System.out.println("Nome: " + getNome());
@@ -34,9 +48,11 @@ public void exibirInformacoes() {
     System.out.println("Cor do Cabelo: " + getCorCabelo());
     System.out.println("Altura: " + getAltura());
     System.out.println("Estilo: " + getEstilo());
-    System.out.println("Usa Óculos: " + (isUsaOculos() ? "Sim" : "Não"));
+    System.out.println("Usa oculos: " + (getUsaOculos() ? "Sim" : "Nao"));
     System.out.println("Nota: " + getNota());
     System.out.println("Comportamento: " + getComportamento());
+    System.out.println("Cor favorita: " + getCorFavorita());
+
 }
 
 }

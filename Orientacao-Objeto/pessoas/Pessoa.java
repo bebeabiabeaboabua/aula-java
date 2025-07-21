@@ -6,6 +6,10 @@ public class Pessoa{
     private String estilo;
     private boolean usaOculos;
 
+    public Pessoa(){
+
+    }
+
     public Pessoa(String nome, int idade, String corCabelo, double altura, String estilo, boolean usaOculos) {
         this.nome = nome;
         this.idade = idade;
@@ -61,7 +65,7 @@ public class Pessoa{
     }
 
     // Getter e Setter para usaOculos
-    public boolean isUsaOculos() {
+    public boolean getUsaOculos() {
         return usaOculos;
     }
 
