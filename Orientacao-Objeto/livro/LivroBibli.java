@@ -6,6 +6,19 @@ public class LivroBibli extends Livro{
     private int dataEmprestou;
     private String nomeQuemEmprestou;
 
+    LivroBibli(){
+
+    }
+
+    LivroBibli( int codigo,
+                String titulo,
+                int prazoDevolver){
+        super(codigo, titulo);
+        this.prazoDevolver = prazoDevolver;
+    }
+
+    //==================================================================
+
     public String getLocalPrateleira(){
         return localPrateleira;
     }
@@ -49,6 +62,23 @@ public class LivroBibli extends Livro{
 
     public void Devolver(){
         System.out.println("devolvendo");
+    }
+
+    //==================================================================
+
+    @Override
+    public void Localizar (){
+        System.out.println("localizando livro de biblioteca");
+    }
+
+    @Override
+    public void Cadastrar (){
+        System.out.println("cadastrando livro de biblioteca");
+    }
+
+    @Override
+    public void Ler (){
+        System.out.println("lendo livro de biblioteca");
     }
 
 }

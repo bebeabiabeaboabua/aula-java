@@ -44,7 +44,9 @@ public class LivrosMain {
         livrolivraria.setPreco(89);
         livrolivraria.setNovoUsado("Usado");
         livrolivraria.setLocalPrateleira("Estante A - Prateleira 1");
-
+        livrolivraria.Ler();
+        livrolivraria.Cadastrar();
+        livrolivraria.Localizar();
         livrolivraria.Vender();
 
         // ===== IMPRESSÃO DAS INFORMAÇÕES =====
@@ -82,5 +84,18 @@ public class LivrosMain {
 
         Livro novoLivro = new Livro();
         System.out.println("novo livro: "+novoLivro.getTitulo());
+
+        Livro livro2 = new Livro(90, "blablabla");
+        System.out.println("Livro 2: "+livro2.getTitulo());
+
+        LivroBibli livrobiblioteca2 = new LivroBibli(8, "cactus", 7); 
+        System.out.println("Livro bilbioteca 2: "+livrobiblioteca2.getTitulo());
+        System.out.println("Livro bilbioteca 2 prazo: "+livrobiblioteca2.getPrazoDevolver());
+
+        LivroLivraria livrolivraria2 = new LivroLivraria(8, "cactus", 78); 
+        System.out.println("Livro livraria 2: "+livrolivraria2.getTitulo());
+        System.out.println("Livro livraria 2 preco: "+livrolivraria2.getPreco());
+
+
     }
 }

@@ -16,6 +16,11 @@ public class Livro{
     this.edicao = 0;
 }
 
+    Livro(int codigo, String titulo) {
+    this.codigo = codigo;
+    this.titulo = titulo;
+}
+
     public int getCodigo(){
         return codigo;
     }
