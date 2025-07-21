@@ -68,7 +68,7 @@ public class Personagem {
     public void usarHabilidade(){ //reduz mana
         if (!estaVivo()) {
             System.out.println(nome + " esta morto e nao pode usar habilidades.");
-            froca = 0;
+            forca = 0;
             return;
         }
     if (classe.equals("mago")) {
