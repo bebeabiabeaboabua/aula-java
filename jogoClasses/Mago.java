@@ -1,6 +1,10 @@
 public class Mago extends Personagem {
     private int mana = 100;
 
+    public Mago(String nome) {
+        super(nome);
+    }
+
     public int getMana() {
         return mana;
     }
