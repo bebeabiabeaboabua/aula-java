@@ -28,7 +28,7 @@ public class primeiroApp {
         textField.setFont(new Font("Serif", Font.BOLD, 40));
         //acao para o botao
         button.addActionListener(e -> {
-        JOptionPane.showMessageDialog(null, textField.getText(), "titulo", 3);
+        JOptionPane.showMessageDialog(null, "errado", "titulo", 3);
         });
 
         JTextArea textArea = new JTextArea("sim realmente e verdade mesmo isso concordo cara arrasou muito fechou entao. concorda?");
