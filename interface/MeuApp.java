@@ -3,139 +3,120 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.sound.sampled.*;
 import java.io.File;
+import java.io.IOException;
+import java.awt.image.BufferedImage;
+import javax.imageio.ImageIO;
 
 public class MeuApp {
 
-    static Clip somPrincipal;
-    static boolean camposVisiveis = false;
-
     public static void main(String[] args) {
-        JFrame frame = new JFrame("primeira janela");
-        frame.setSize(800, 800);
+        SwingUtilities.invokeLater(() -> new MeuApp().criarJanela());
+    }
+
+    private Clip clip; // Som atual
+
+    private void criarJanela() {
+        JFrame frame = new JFrame("Quiz brain rot");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(1000, 1000);
         frame.setLocationRelativeTo(null);
 
-        JPanel panel = new JPanel(new BorderLayout());
-        panel.setBackground(Color.PINK);
+        JPanel panelPrincipal = new JPanel(new BorderLayout());
 
-        JPanel topPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 20));
-        topPanel.setBackground(Color.PINK);
-
-        JLabel titulo = new JLabel("Acerte o brain rot pelo som");
+        // Título centralizado
+        JLabel titulo = new JLabel("ADIVINHE O BRAIN ROT PELO SOM");
+        titulo.setHorizontalAlignment(SwingConstants.CENTER);
         titulo.setFont(new Font("Serif", Font.BOLD, 40));
-        titulo.setForeground(Color.BLACK);
+        panelPrincipal.add(titulo, BorderLayout.NORTH);
 
-        JButton tocarSomBtn = new JButton("Tocar Som");
-        tocarSomBtn.setFont(new Font("Arial", Font.PLAIN, 18));
-        tocarSomBtn.setBackground(Color.GREEN);
+        // Painel com os botões e campos de texto
+        JPanel botoesPanel = new JPanel(new GridLayout(4, 2, 20, 20)); // 4 linhas, 2 colunas
 
-        topPanel.add(titulo);
-        topPanel.add(tocarSomBtn);
-        panel.add(topPanel, BorderLayout.NORTH);
+        // Novos itens adicionados às arrays
+        String[] imagens = {
+            "atumalaca.png", "lobo.png", "wenomechinsama.png", "nugget.png",
+            "brainrot.png", "lapolizia.png", "Jet2Holidays.png", "finjoquenaopercebo.png"
+        };
 
-        somPrincipal = carregarSom("som.wav");
-        Clip som1 = carregarSom("som.wav");
-        Clip som2 = carregarSom("lobo.wav");
-        Clip som3 = carregarSom("wenomechainsama.wav");
-        Clip som4 = carregarSom("nugget.wav");
+        String[] respostasCorretas = {
+            "atumalaca", "lobo auu", "wenomechinsama", "chicken nugget",
+            "italian brain rot ringtone", "no la polizia", "jet2holidays", "eu finjo que não percebo mas tudo está sendo observado"
+        };
 
-        tocarSomBtn.addActionListener(e -> tocarClip(somPrincipal));
+        String[] caminhosSom = {
+            "som.wav", "lobo.wav", "wenomechinsama.wav", "nugget.wav",
+            "ringtone.wav", "lapolizia.wav", "jet2-holiday.wav", "eu-finjo-que-nao-percebo.wav"
+        };
 
-        JPanel botoesPainel = new JPanel(new GridLayout(2, 2, 10, 10));
-        botoesPainel.setBackground(Color.PINK);
-        botoesPainel.setBorder(BorderFactory.createEmptyBorder(40, 40, 10, 40));
+        for (int i = 0; i < imagens.length; i++) {
+            JPanel container = new JPanel(new BorderLayout());
 
-        // Campos de texto abaixo dos botões
-        JTextField campo1 = new JTextField();
-        JTextField campo2 = new JTextField();
-        JTextField campo3 = new JTextField();
-        JTextField campo4 = new JTextField();
+            int index = i;
 
-        campo1.setVisible(false);
-        campo2.setVisible(false);
-        campo3.setVisible(false);
-        campo4.setVisible(false);
+            JButton botao = new JButton();
+            botao.setPreferredSize(new Dimension(150, 150));
 
-        // Painel para organizar botão + campo de texto juntos
-        JPanel box1 = criarBotaoComCampo("atumalaca.png", som1, true, campo1);
-        JPanel box2 = criarBotaoComCampo("lobo.png", som2, false, campo2);
-        JPanel box3 = criarBotaoComCampo("wenamwchinsama.png", som3, false, campo3);
-        JPanel box4 = criarBotaoComCampo("nugget.png", som4, false, campo4);
+            // Carrega e redimensiona a imagem corretamente
+            try {
+                BufferedImage imagemOriginal = ImageIO.read(new File(imagens[i]));
+                Image imagemRedimensionada = imagemOriginal.getScaledInstance(150, 150, Image.SCALE_SMOOTH);
+                botao.setIcon(new ImageIcon(imagemRedimensionada));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
 
-        botoesPainel.add(box1);
-        botoesPainel.add(box2);
-        botoesPainel.add(box3);
-        botoesPainel.add(box4);
+            JTextField campoTexto = new JTextField();
+            campoTexto.setFont(new Font("Serif", Font.PLAIN, 20));
 
-        panel.add(botoesPainel, BorderLayout.CENTER);
+            // Quando clicar no botão, tocar o som correspondente
+            botao.addActionListener(e -> {
+                pararSom();
+                tocarSom(caminhosSom[index]);
+            });
 
-        JTextArea textArea = new JTextArea("In Internet culture, brain rot (or brainrot) is Internet content deemed to be of low quality or value, or the supposed negative psychological and cognitive effects caused by it...");
-        textArea.setFont(new Font("Serif", Font.PLAIN, 16));
-        textArea.setLineWrap(true);
-        textArea.setWrapStyleWord(true);
-        textArea.setEditable(false);
-        textArea.setBackground(Color.PINK);
-        panel.add(textArea, BorderLayout.SOUTH);
+            // Quando digitar no campo e apertar Enter, verificar resposta
+            campoTexto.addActionListener(e -> {
+                pararSom(); // parar o som de fundo
 
-        frame.add(panel);
+                String resposta = campoTexto.getText().trim().toLowerCase();
+                if (resposta.equals(respostasCorretas[index])) {
+                    tocarSom("yippee.wav"); // som de acerto
+                    JOptionPane.showMessageDialog(null, "Acertou!", "Resultado", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    tocarSom("miau.wav"); // som de erro
+                    JOptionPane.showMessageDialog(null, "Errou.", "Resultado", JOptionPane.ERROR_MESSAGE);
+                }
+
+                pararSom(); // parar o som quando fechar o pop-up
+                campoTexto.setText("");
+            });
+
+            container.add(botao, BorderLayout.CENTER);
+            container.add(campoTexto, BorderLayout.SOUTH);
+            botoesPanel.add(container);
+        }
+
+        panelPrincipal.add(botoesPanel, BorderLayout.CENTER);
+        frame.add(panelPrincipal);
         frame.setVisible(true);
     }
 
-    public static JPanel criarBotaoComCampo(String imagem, Clip som, boolean ehCerto, JTextField campoTexto) {
-        JPanel painel = new JPanel();
-        painel.setLayout(new BorderLayout());
-        painel.setBackground(Color.PINK);
-
-        JButton botao = new JButton(new ImageIcon(imagem));
-        botao.setBackground(Color.WHITE);
-
-        botao.addActionListener(e -> {
-            pausarSomPrincipal();
-            tocarClip(som);
-
-            if (ehCerto) {
-                JOptionPane.showMessageDialog(null, "Acertou!", "Atumalaca", JOptionPane.INFORMATION_MESSAGE);
-                campoTexto.setVisible(true); // mostra os campos de texto se acertar
-            } else {
-                JOptionPane.showMessageDialog(null, "Errou!", "Erro", JOptionPane.ERROR_MESSAGE);
-            }
-
-            som.stop(); // para o som ao fechar a janelinha
-        });
-
-        campoTexto.setPreferredSize(new Dimension(100, 25));
-        campoTexto.setVisible(false);
-
-        painel.add(botao, BorderLayout.CENTER);
-        painel.add(campoTexto, BorderLayout.SOUTH);
-
-        return painel;
-    }
-
-    public static Clip carregarSom(String caminho) {
+    private void tocarSom(String caminho) {
         try {
-            File arquivo = new File(caminho);
-            AudioInputStream audioStream = AudioSystem.getAudioInputStream(arquivo);
-            Clip clip = AudioSystem.getClip();
+            File audioFile = new File(caminho);
+            AudioInputStream audioStream = AudioSystem.getAudioInputStream(audioFile);
+            clip = AudioSystem.getClip();
             clip.open(audioStream);
-            return clip;
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Erro ao carregar som: " + e.getMessage());
-            return null;
-        }
-    }
-
-    public static void tocarClip(Clip clip) {
-        if (clip != null) {
-            if (clip.isRunning()) clip.stop();
-            clip.setFramePosition(0);
             clip.start();
+        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException ex) {
+            ex.printStackTrace();
         }
     }
 
-    public static void pausarSomPrincipal() {
-        if (somPrincipal != null && somPrincipal.isRunning()) {
-            somPrincipal.stop();
+    private void pararSom() {
+        if (clip != null && clip.isRunning()) {
+            clip.stop();
+            clip.close();
         }
     }
 }
